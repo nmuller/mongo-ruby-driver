@@ -135,7 +135,7 @@ module Mongo
           cmd[:readConcern] = collection.read_concern if collection.read_concern
           preference = ServerSelector.get(opts[:read] || read)
           read_with_retry do
-            server = preference.select_server(cluster)
+            server = preference.select_server(cluster, false)
             apply_collation!(cmd, server, opts)
 
             Operation::Commands::Command.new({
@@ -172,7 +172,7 @@ module Mongo
           cmd[:readConcern] = collection.read_concern if collection.read_concern
           preference = ServerSelector.get(opts[:read] || read)
           read_with_retry do
-            server = preference.select_server(cluster)
+            server = preference.select_server(cluster, false)
             apply_collation!(cmd, server, opts)
 
             Operation::Commands::Command.new({
